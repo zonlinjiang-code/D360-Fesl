@@ -138,6 +138,37 @@ body.minimal-idle[data-stage="edit"] #mobileDock{display:none!important}
 .preview-actions select,.preview-actions #previewLanguage{width:150px}
 @media(max-width:720px){.preview-banner{font-size:12px;padding:8px 12px}.preview-actions{width:100%}.preview-actions select,.preview-actions #previewLanguage{width:110px}.preview-actions select,.preview-actions button{height:38px;min-height:38px;padding:6px 8px}}
 
+#mobileInputBar{display:none}
+@media(max-width:720px){
+  body[data-stage="edit"] .poster-shell{width:min(100%,var(--mobile-poster-width,100%));max-width:500px;margin-inline:auto}
+  body[data-stage="edit"] .workspace,body.has-editor[data-stage="edit"] .workspace{padding-bottom:calc(80px + var(--mobile-overview-space,0px))}
+  body[data-stage="edit"] #mobileDock{display:flex!important}
+  body.minimal-idle[data-stage="edit"] #mobileDock{display:flex!important}
+  body.mobile-typing .panel.editor-panel,body.mobile-typing #completionControl{display:none!important}
+  body.keyboard-open #mobileDock{visibility:hidden;pointer-events:none}
+  body.mobile-typing #mobileInputBar:not([hidden]){display:flex;position:fixed;top:var(--mobile-input-top);left:0;right:0;height:42px;z-index:70;background:#f5f5f2;border-top:1px solid #d1d1cd;align-items:center;gap:12px;padding:0 14px;font-size:13px;box-sizing:border-box}
+  #mobileInputBar span{flex:1;color:#666}
+  #mobileInputBar button{min-height:38px;border:0;background:transparent;padding:6px;font:inherit}
+  #mobileTextDone{font-weight:700!important}
+  body.mobile-menu-open #mobileDock{visibility:hidden;pointer-events:none}
+  body.mobile-menu-open .poster-shell{z-index:60}
+  .setup-shade{position:fixed;inset:0;background:#0003;z-index:29}
+  .poster-shell .setup-menu{position:fixed!important;inset:auto 0 0 0!important;transform:none!important;width:100%!important;height:auto!important;max-height:62svh;z-index:30;padding:18px 16px max(18px,env(safe-area-inset-bottom));margin:0;background:#f5f5f2;overflow:auto;box-shadow:0 -5px 22px #0001;box-sizing:border-box}
+  body.keyboard-open .poster-shell .setup-menu{bottom:var(--keyboard)!important;max-height:calc(var(--mobile-visible-height,60svh) - 20px)}
+  .poster-shell .poster-menu:not(.setup-menu){position:absolute;left:2%;right:2%;top:14%;height:70%;width:auto;max-height:none;transform:none;z-index:6;background:var(--paper);overflow:auto;padding:0 0 12px;box-shadow:none}
+  .poster-shell .dimension-menu:not(.setup-menu){position:absolute;top:8.2%!important;width:44px!important;transform:translateX(-50%);padding:0;background:var(--paper);box-shadow:none!important;z-index:6}
+  .setup-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 16px;font-size:18px;font-weight:700}
+  .setup-heading span{white-space:nowrap}
+  .poster-shell .setup-heading button{font:14px Arial,sans-serif!important;padding:6px!important;min-height:36px;width:auto!important;flex:none;background:transparent;border:0}
+  .setup-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .poster-shell .setup-options button{font:500 16px/1.2 "D360Medium","D360Chinese",Arial,sans-serif!important;letter-spacing:0;min-height:46px;padding:10px 6px;text-align:center;border:1px solid #ccc;background:transparent;text-decoration:none;border-radius:3px;overflow-wrap:anywhere}
+  .poster-shell .setup-options button[aria-current="true"]{background:#111;color:white;border-color:#111}
+  .poster-shell .topic-custom{margin-top:14px;align-items:center}
+  .poster-shell .topic-custom input{min-height:42px;font-size:16px;flex:1}
+  .poster-shell .topic-custom button{font-size:15px;min-height:42px;padding:8px}
+  #completionControl{margin-top:18px;padding-bottom:12px}
+}
+
 </style></head><body>
 <header class="topbar"><div class="brand"><b>Design 360 Festival</b></div><div class="topnote">360 DESIGN FESTIVAL · 2026.11.26—11.29</div><div class="toplinks"><span id="saveState" class="small desktop">选择，成为你的海报。</span><button class="link" id="helpBtn">使用说明</button></div></header>
 <main class="workspace"><section class="stage" aria-label="海报画布"><div class="stagebar"><span id="stageLabel">01 / THE FIRST SELECTION</span><div class="row"><button id="zoomBtn" title="切换画布查看尺寸">放大画布</button><button id="toControls" class="hidden">编辑选中格</button></div></div><div class="poster-shell" id="posterShell"><canvas id="poster" width="1160" height="1720" aria-label="Design 360 海报预览"></canvas><div class="hotspots" id="hotspots"></div></div><div class="stagefoot"><span id="canvasHint">点击格子，留下你的选择。</span><span>HANGZHOU, CHINA</span></div></section><aside class="panel" id="panel" aria-label="海报操作"><div class="eyebrow">SELECT ALL SQUARES WITH DESIGN</div><h1>先找到 Design.</h1><p class="lead">从一次选择开始。<br>请选择包含「design」或「设计」文字的三个格子。</p><div class="counterline"><div class="count" id="initialCount">0 <span>/ 3</span></div><span class="small">YOUR SELECTION</span></div><button class="primary" id="initialConfirm" style="width:100%" disabled>确认选择 →</button><div class="section"><p class="small">接下来，用文字、图片或颜色出一道属于你的题目，邀请朋友一起回答。</p></div></aside></main>
@@ -319,7 +350,7 @@ function showInline(focus=false){
  const c=state.cells[selected];
  let el=$('inlineText');if(!el){el=document.createElement('textarea');el.id='inlineText';el.className='inline-text';el.maxLength=120;el.spellcheck=false;el.setAttribute('aria-label',`直接编辑第${selected+1}格`);el.value=c.text;$('posterShell').append(el);
  el.addEventListener('input',()=>{inputValue(el.value);if($('cellText'))$('cellText').value=el.value;styleInline();});
- el.addEventListener('blur',()=>{setTimeout(()=>{if($('inlineText')===el&&document.activeElement!==el&&document.activeElement!==$('cellText')){finishInline();hits();}},0);});}
+ el.addEventListener('blur',()=>{setTimeout(()=>{if($('inlineText')===el&&document.activeElement!==el&&document.activeElement!==$('cellText')){if(mobileLayout())finishMobileText();else{finishInline();hits();}}},0);});}
  inlineIndex=selected;styleInline();draw();document.body.classList.add('inline-active');
  if(focus){el.focus({preventScroll:true});el.setSelectionRange(el.value.length,el.value.length);setTimeout(()=>ensureCellVisible(),180);}
 }
@@ -328,11 +359,11 @@ function styleInline(){const el=$('inlineText');if(!el)return;const c=state.cell
  const top=m.numeric?(ch-m.advance)/2:8+(m.ascent+m.descent-m.advance)/2;
  el.style.fontSize=m.fs*scale+'px';el.style.fontWeight=m.weight;el.style.fontFamily=m.fontFamily;el.style.letterSpacing=m.fs*m.tracking*scale+'px';el.style.lineHeight=m.advance*scale+'px';el.style.padding=`${Math.max(0,top)*scale}px ${14*scale}px 0 ${2*scale}px`;el.style.color=c.fg;el.style.textAlign=m.numeric?'center':'left';
 }
-function ensureCellVisible(){const el=$('inlineText');if(!el)return;const rect=el.getBoundingClientRect(),vp=window.visualViewport,bottom=(vp?vp.height+vp.offsetTop:innerHeight)-($('panel').offsetHeight||0)-76;
+function ensureCellVisible(){if(mobileLayout()){mobileEnsureCell();return;}const el=$('inlineText');if(!el)return;const rect=el.getBoundingClientRect(),vp=window.visualViewport,bottom=(vp?vp.height+vp.offsetTop:innerHeight)-($('panel').offsetHeight||0)-76;
  if(rect.bottom>bottom)window.scrollBy({top:rect.bottom-bottom+12,behavior:'smooth'});else if(rect.top<58)window.scrollBy({top:rect.top-68,behavior:'smooth'});
 }
 function toggleMenu(kind){finishInline();editorOpen=false;posterMenu=posterMenu===kind?null:kind;render();}
-hits=function(){const s=stage==='entry'?entryState():state,h=$('hotspots');h.replaceChildren();h.style.visibility=stage==='edit'&&posterMenu==='topic'?'hidden':'';$('posterShell').querySelectorAll('.poster-menu,.dimension-menu,.poster-control').forEach(e=>e.remove());
+hits=function(){const s=stage==='entry'?entryState():state,h=$('hotspots');h.replaceChildren();h.style.visibility=stage==='edit'&&posterMenu==='topic'&&(guidePhase==='content'||!mobileLayout())?'hidden':'';$('posterShell').querySelectorAll('.poster-menu,.dimension-menu,.poster-control').forEach(e=>e.remove());
  s.cells.forEach((c,i)=>{const b=document.createElement('button');b.className='cell-hit'+(stage==='edit'&&step===3&&editorOpen&&selected===i&&['image','slice','color'].includes(c.type)?' editing':'');pos(b,G.x+i%s.cols*G.w/s.cols,G.y+Math.floor(i/s.cols)*G.h/s.rows,G.w/s.cols,G.h/s.rows);b.setAttribute('aria-label',`第${i+1}格：${c.text.trim()?c.text:c.asset?'图片':hasColorFill(c)?'颜色':'空白'}`);b.setAttribute('aria-pressed',String(stage==='entry'?entryPicks.has(i):stage==='answer'||stage==='result'?picks.has(i):step===4?state.answer.includes(i):editorOpen&&selected===i));b.disabled=stage==='result';b.onclick=()=>cellClick(i);h.append(b);});
  if(stage!=='edit'||step!==3)return;
  const control=(label,x,y,w,ht,fn)=>{const b=document.createElement('button');b.className='poster-control';b.setAttribute('aria-label',label);pos(b,x,y,w,ht);b.onclick=fn;$('posterShell').append(b);return b;};
@@ -391,11 +422,12 @@ const legacyApplyBundle=applyBundle;applyBundle=function(data){legacyApplyBundle
 // Exported questions must start without any transient controls from the creator's page.
 portableQuestion=async function(){finishInline();if(!validQuestion())return;const payload=JSON.stringify(bundle(false)).replace(/</g,'\\u003c'),tag=`<script id="embedded-question" type="application/json">${payload}<\/script>`;let output;if(document.querySelector('script[src*="site-assets/site.js"]')){try{toast('正在生成独立题目 HTML…');const response=await fetch('Design360-Select-Studio-1.5.html');if(!response.ok)throw Error('独立版本未上传');output=(await response.text()).replace(/<script id="embedded-question" type="application\/json">[\s\S]*?<\/script>/,()=>tag);}catch(e){toast('未找到独立版本，请一并上传 1.5 单文件。');return;}}else{const doc=document.documentElement.cloneNode(true);doc.querySelector('#embedded-question').textContent=payload;doc.querySelector('#dialog').removeAttribute('open');doc.querySelector('#toast').classList.remove('show');doc.querySelectorAll('.inline-text,.poster-menu,.dimension-menu,.poster-control').forEach(e=>e.remove());doc.querySelector('body').className='';output='<!doctype html>\n'+doc.outerHTML;}download(output,`Design360-题目-${safeName(state.topic)}.html`,'text/html');toast('题目 HTML 已生成。');};
 async function bootSimple(){await init();document.title='Design 360 Festival';$('helpBtn').onclick=()=>{modal('<h2>Design 360 Festival</h2><p class="lead">点提示词，选择你想寻找的内容。<br>点右上角数字，调整网格大小。<br>点格子，直接输入文字或数字。<br>图片和颜色在底部工具中选择。<br>完成后保存海报，或分享给朋友作答。</p><button id="helpMore">更多 / 项目文件</button>');on('helpMore',moreMenu);};
- document.addEventListener('pointerdown',e=>{if(posterMenu&&!e.target.closest('.poster-menu,.dimension-menu,.poster-control')){posterMenu=null;render();}});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'){finishInline();posterMenu=null;editorOpen=false;render();}});
+ document.addEventListener('pointerdown',e=>{if(posterMenu&&!(mobileLayout()&&guidePhase!=='content')&&!e.target.closest('.poster-menu,.dimension-menu,.poster-control')){posterMenu=null;render();}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(mobileLayout()&&guidePhase!=='content')return;if(mobileTyping()){finishMobileText();return;}finishInline();posterMenu=null;editorOpen=false;render();}});
  let viewportBaseline=0;
- const focusedControl=()=>{const el=document.activeElement;if(!el||!/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))return;const vp=window.visualViewport,top=vp?vp.offsetTop:0,bottom=top+(vp?vp.height:innerHeight),rect=el.getBoundingClientRect();if(rect.top<top+18||rect.bottom>bottom-18)el.scrollIntoView({behavior:'smooth',block:'center',inline:'nearest'});};
- const viewport=()=>{const vp=window.visualViewport,visibleHeight=vp?vp.height:innerHeight,active=document.activeElement,isKeyboardTarget=!!active&&/^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName);if(!isKeyboardTarget)viewportBaseline=visibleHeight;else if(!viewportBaseline)viewportBaseline=visibleHeight;const keyboardGap=isKeyboardTarget&&viewportBaseline-visibleHeight>120?viewportBaseline-visibleHeight:0;document.documentElement.style.setProperty('--keyboard',keyboardGap+'px');document.documentElement.style.setProperty('--editor-bottom',keyboardGap?'0px':'63px');document.body.classList.toggle('keyboard-open',keyboardGap>0);styleInline();};window.addEventListener('resize',viewport);document.addEventListener('focusin',()=>setTimeout(()=>{viewport();focusedControl();},220));document.addEventListener('focusout',()=>setTimeout(viewport,120));if(window.visualViewport){visualViewport.addEventListener('resize',()=>{viewport();setTimeout(()=>{ensureCellVisible();focusedControl();},80);});visualViewport.addEventListener('scroll',viewport);}viewport();
+ const focusedControl=()=>{if(mobileLayout())return;const el=document.activeElement;if(!el||!/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))return;const vp=window.visualViewport,top=vp?vp.offsetTop:0,bottom=top+(vp?vp.height:innerHeight),rect=el.getBoundingClientRect();if(rect.top<top+18||rect.bottom>bottom-18)el.scrollIntoView({behavior:'smooth',block:'center',inline:'nearest'});};
+ initMobileViewport();
+ const viewport=()=>{if(mobileLayout())return;const vp=window.visualViewport,visibleHeight=vp?vp.height:innerHeight,active=document.activeElement,isKeyboardTarget=!!active&&/^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName);if(!isKeyboardTarget)viewportBaseline=visibleHeight;else if(!viewportBaseline)viewportBaseline=visibleHeight;const keyboardGap=isKeyboardTarget&&viewportBaseline-visibleHeight>120?viewportBaseline-visibleHeight:0;document.documentElement.style.setProperty('--keyboard',keyboardGap+'px');document.documentElement.style.setProperty('--editor-bottom',keyboardGap?'0px':'63px');document.body.classList.toggle('keyboard-open',keyboardGap>0);styleInline();};window.addEventListener('resize',viewport);document.addEventListener('focusin',()=>setTimeout(()=>{viewport();focusedControl();},220));document.addEventListener('focusout',()=>setTimeout(viewport,120));if(window.visualViewport){visualViewport.addEventListener('resize',()=>{viewport();setTimeout(()=>{ensureCellVisible();focusedControl();},80);});visualViewport.addEventListener('scroll',viewport);}viewport();
 }
 
 // 1.2: one text renderer, direct manipulation, editable palettes.
@@ -435,7 +467,7 @@ function autoGridLine(s){const key=JSON.stringify([s.cols,s.rows,s.gray,s.cells.
 const drawToV11=drawTo;drawTo=function(ctx,s,marks){drawToV11(ctx,s.line==='auto'?{...s,line:autoGridLine(s)}:s,marks);};
 const applyBundleV12=applyBundle;applyBundle=function(data){lineCache.key='';applyBundleV12(data);};
 // Text never switches renderer while editing. The transparent input only receives keyboard/IME events.
-draw=function(){const ctx=$('poster').getContext('2d'),s=stage==='entry'?entryState():state;drawTo(ctx,s,stage==='entry'?entryPicks:stage==='answer'||stage==='result'?picks:stage==='edit'&&step===4&&state.mode==='exact'?new Set(state.answer):new Set());if(stage==='edit'&&posterMenu==='topic'){ctx.fillStyle='#f8f8f8';ctx.fillRect(0,225,W,1260);}drawCaret(ctx);};
+draw=function(){const ctx=$('poster').getContext('2d'),s=stage==='entry'?entryState():state;drawTo(ctx,s,stage==='entry'?entryPicks:stage==='answer'||stage==='result'?picks:stage==='edit'&&step===4&&state.mode==='exact'?new Set(state.answer):new Set());if(stage==='edit'&&posterMenu==='topic'&&!mobileLayout()){ctx.fillStyle='#f8f8f8';ctx.fillRect(0,225,W,1260);}drawCaret(ctx);};
 function editingLines(c){const ctx=$('poster').getContext('2d'),w=G.w/state.cols,h=G.h/state.rows,m=textLayout(ctx,c.text,w,h,c.type,c.size);ctx.textAlign=m.numeric?'center':'left';const lines=[];let at=0;
  m.lines.forEach((text,i)=>{const bounds=ctx.measureText(text),baseX=G.x+selected%state.cols*w,baseY=G.y+Math.floor(selected/state.cols)*h;let x=baseX+2;if(m.numeric)x=baseX+w/2+(bounds.actualBoundingBoxLeft-bounds.actualBoundingBoxRight)/2-ctx.measureText(text).width/2;lines.push({text,start:at,end:at+text.length,x,y:baseY+(m.numeric?(h-m.total)/2:8)+m.ascent+i*m.advance});at+=text.length;if(c.text[at]==='\n')at++;});return {m,lines};
 }
@@ -474,7 +506,7 @@ const hitsV11=hits;hits=function(){hitsV11();if(stage!=='edit'||step!==3)return;
  });
 };
 function swapDirect(a,b){if(a===b||a<0||b<0||a>=state.cells.length||b>=state.cells.length)return;finishInline();commit(()=>{if(state.whole)state.whole.split=true;[state.cells[a],state.cells[b]]=[state.cells[b],state.cells[a]];selected=b;});}
-const HOLD_TO_MOVE_MS=700,DRAG_SLOP=8;
+const HOLD_TO_MOVE_MS=450,DRAG_SLOP=8;
 const moveHandSVG='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 11.8V5.7a1.4 1.4 0 0 1 2.8 0v4.5-6.5a1.4 1.4 0 0 1 2.8 0v6.5-5.8a1.4 1.4 0 0 1 2.8 0v5.9-4.4a1.4 1.4 0 0 1 2.8 0v8.4c0 4.2-2.6 6.7-6.5 6.7H9.8c-2 0-3.4-.7-4.5-2.3l-3.2-4.4a1.6 1.6 0 0 1 2.6-1.9l1.7 2.2"/></svg>';
 let gesture=null,suppressClickUntil=0;
 function cellAt(x,y){const r=$('posterShell').getBoundingClientRect(),px=(x-r.left)/r.width*W,py=(y-r.top)/r.height*H;if(px<G.x||px>=G.x+G.w||py<G.y||py>=G.y+G.h)return -1;return Math.floor((py-G.y)/G.h*state.rows)*state.cols+Math.floor((px-G.x)/G.w*state.cols);}
@@ -561,7 +593,7 @@ setColor=function(value,repaint=true){finishInline();commit(()=>colorCell(state.
 function randomOneColor(){setColor(palette()[Math.floor(Math.random()*palette().length)]);}
 fillRandomColors=function(){finishInline();commit(()=>{const p=palette();state.cells.forEach(c=>colorCell(c,p[Math.floor(Math.random()*p.length)]));});};
 fillImages=function(ids){const empty=state.cells.map((c,i)=>filledCell(c)?-1:i).filter(i=>i>=0);for(let i=empty.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[empty[i],empty[j]]=[empty[j],empty[i]];}ids.slice(0,empty.length).forEach((id,k)=>state.cells[empty[k]]=Object.assign(blank(),{type:'image',asset:id}));return Math.min(ids.length,empty.length);};
-upload=async function(files){const list=selectFilesForUpload(files);if(!list.length||uploadBusy)return;finishInline();const mode=uploadMode;uploadBusy=true;renderPanel();try{const ids=[];for(const f of list)ids.push(await readFile(f,mode));commit(()=>{if(mode==='whole'){state.whole={asset:ids[0],px:.5,py:.5,zoom:1,split:false};state.shelf=[];updateSlices(false);}else fillImages(ids);});editTab='image';editorOpen=true;render();toast(mode==='whole'?'图片已铺满网格。':`已随机放入 ${ids.length} 张图片。`);}catch(e){toast(e.message||'图片读取失败，请重试。');}finally{uploadBusy=false;renderPanel();}};
+upload=async function(files){const list=selectFilesForUpload(files);if(!list.length||uploadBusy)return;finishInline();const mode=uploadMode;uploadBusy=true;renderPanel();try{const ids=[];for(const f of list)ids.push(await readFile(f,mode));commit(()=>{if(mode==='whole'){state.whole={asset:ids[0],px:.5,py:.5,zoom:1,split:false};state.shelf=[];updateSlices(false);}else fillImages(ids);});editTab='image';editorOpen=!(mobileLayout()&&completeGrid());if(!editorOpen){document.body.classList.add('minimal-idle');posterMenu=null;}render();toast(mode==='whole'?'图片已铺满网格。':`已随机放入 ${ids.length} 张图片。`);}catch(e){toast(e.message||'图片读取失败，请重试。');}finally{uploadBusy=false;renderPanel();}};
 const markupV12=editorMarkup;editorMarkup=function(){let body=markupV12().replace('<button class="clear-current" id="clearCurrent">清空此格</button>','');body=body.replace('<button id="randomNumbers">随机数字</button>','<button id="randomOneNumber">随机数字</button><button id="randomNumbers">全部随机数字</button>');if(editTab==='color'){body=body.slice(0,body.indexOf('<div class="tool-actions">'))+`<div class="tool-actions"><button id="randomOneColor">随机颜色</button><button id="randomAllColors">全部随机颜色</button></div><div class="color-board"><div class="palette">${palette().map((v,i)=>`<button class="swatch" data-color="${v}" aria-label="色板第${i+1}色 ${v}" aria-pressed="${state.cells[selected].bg===v}" style="background:${v}"></button>`).join('')}</div><div class="palette-bottom"><label class="custom-color"><input type="color" id="bgColor" aria-label="自选颜色" value="${state.cells[selected].bg}">自选颜色</label><button class="link" id="editPalette">编辑色板</button></div></div>`;}return body;};
 const bindV12=bindSimpleEditor;bindSimpleEditor=function(){bindV12();on('randomOneNumber',randomOneNumber);on('randomOneColor',randomOneColor);bindSizeReset();};
 previewMarkup=function(){return '<div class="stack"><button class="primary" id="blankExport">保存海报</button></div>';};
@@ -599,6 +631,7 @@ render=function(){guideRenderBase();renderGuide();};
 
 function renderGuide(){
   let tip=$('guideTip');
+  if(mobileLayout()){tip?.remove();return;}
   const active=stage==='edit'&&step===3&&guidePhase!=='content';
   if(!active){tip?.remove();return;}
   if(!tip){tip=document.createElement('div');tip.id='guideTip';tip.className='guide-tip';$('posterShell').before(tip);}
@@ -619,6 +652,7 @@ go=function(n){
 const guideHitsBase=hits;
 hits=function(){
   guideHitsBase();
+  if(mobileLayout())mobileSetupMenu();
   if(stage!=='edit'||step!==3||guidePhase==='content')return;
   const topic=guidePhase==='topic';
   $('posterShell').querySelectorAll('.cell-hit').forEach(button=>button.disabled=true);
@@ -641,7 +675,7 @@ resizeGrid=function(size){
   if(guidePhase==='topic')return;
   const selecting=stage==='edit'&&guidePhase==='grid';
   guideResizeBase(size);
-  if(selecting){guidePhase='content';render();toast('现在可以点击格子，填入文字、图片或颜色');}
+  if(selecting){guidePhase='content';editorOpen=false;document.body.classList.add('minimal-idle');render();toast('现在可以点击格子，填入文字、图片或颜色');}
 };
 
 const guideCellClickBase=cellClick;
@@ -655,9 +689,41 @@ startFresh=function(){guidePhase='topic';guideStartFreshBase();toggleMenu('topic
 const guideResetContentBase=resetContent;
 resetContent=function(all=false){guideResetContentBase(all);if(all){guidePhase='topic';toggleMenu('topic');}};
 
+function mobileSetupMenu(){
+  $('posterShell').querySelector('.setup-shade')?.remove();
+  const menu=$('posterShell').querySelector('.poster-menu,.dimension-menu');
+  if(!menu)return;
+  const topic=posterMenu==='topic',required=guidePhase!=='content';
+  if(!required)return;
+  menu.classList.add('setup-menu');
+  const shade=document.createElement('div');shade.className='setup-shade';
+  $('posterShell').append(shade);
+  menu.setAttribute('role','dialog');menu.setAttribute('aria-label',topic?'选择关键词':'选择网格');
+  const options=document.createElement('div');options.className='setup-options';
+  [...menu.children].filter(el=>el.tagName==='BUTTON').forEach(button=>{
+    if(topic)button.setAttribute('aria-current',String(button.dataset.word===state.topic));
+    else button.textContent=`${button.dataset.n} × ${button.dataset.n}`;
+    options.append(button);
+  });
+  menu.prepend(options);
+  const heading=document.createElement('div');heading.className='setup-heading';
+  heading.innerHTML=`<span>${topic?'选择关键词':'选择网格'}</span>${required?topic?'':'<button id="setupBack">上一步</button>':'<button id="setupClose">完成</button>'}`;
+  menu.prepend(heading);
+  on('setupBack',()=>{guidePhase='topic';posterMenu='topic';render();});
+  on('setupClose',()=>{posterMenu=null;render();});
+}
+
 // Keep the three content types equally visible before starting a new cell.
 const interactionCellClickBase=cellClick;
+let pendingInlineDismiss=0;
+document.addEventListener('pointerdown',event=>{
+  if(!mobileLayout()||stage!=='edit'||step!==3||guidePhase!=='content'||inlineIndex===null)return;
+  if(event.target instanceof Element&&event.target.closest('.cell-hit'))pendingInlineDismiss=Date.now();
+},true);
 cellClick=function(index){
+  // A tap outside the text field finishes typing; it must not also open another cell's tools.
+  if(pendingInlineDismiss&&Date.now()-pendingInlineDismiss<1000){pendingInlineDismiss=0;finishMobileText();return;}
+  pendingInlineDismiss=0;
   if(stage!=='edit'||step!==3||guidePhase!=='content')return interactionCellClickBase(index);
   finishInline();
   posterMenu=null;
@@ -702,6 +768,7 @@ document.addEventListener('pointerdown',event=>{
   const target=event.target;
   if(!(target instanceof Element)||target.closest('.cell-hit,.poster-control,.poster-menu,.dimension-menu,#mobileDock,#dialog,#completionControl,.guide-tip,.inline-text,button,input,textarea,select,label,a,summary'))return;
   if(!editorOpen&&!posterMenu&&document.body.classList.contains('minimal-idle'))return;
+  if(mobileTyping()){finishMobileText();return;}
   finishInline();
   editorOpen=false;
   posterMenu=null;
@@ -789,6 +856,109 @@ bindSimpleEditor=function(){
   });
 };
 
+// Mobile editing uses the poster itself as the input surface.
+function mobileLayout(){return typeof matchMedia==='function'&&matchMedia('(max-width:720px)').matches;}
+let mobileRestHeight=0,mobileRestWidth=0,mobileViewportTimer=null,mobileWasNarrow=mobileLayout();
+function mobileTyping(){return mobileLayout()&&inlineIndex!==null&&document.activeElement===$('inlineText');}
+function mobileCellScroll(rect,top,bottom){
+  if(rect.height>bottom-top)return rect.top<top||rect.top>bottom-40?rect.top-top:0;
+  return rect.top<top?rect.top-top:rect.bottom>bottom?rect.bottom-bottom:0;
+}
+function mobileEnsureCell(){
+  if(!mobileTyping())return;
+  const vp=window.visualViewport,top=(vp?.offsetTop||0)+12;
+  const dock=document.body.classList.contains('keyboard-open')?0:($('mobileDock')?.getBoundingClientRect().height||60);
+  const bottom=(vp?.offsetTop||0)+(vp?.height||innerHeight)-48-dock;
+  const delta=mobileCellScroll($('inlineText').getBoundingClientRect(),top,bottom);
+  if(Math.abs(delta)>2)window.scrollBy({top:delta,behavior:'instant'});
+}
+function mobileFitPoster(){
+  if(!mobileLayout()||mobileTyping()||document.body.classList.contains('keyboard-open'))return;
+  const shell=$('posterShell');if(!shell)return;
+  const height=mobileRestHeight||window.visualViewport?.height||innerHeight;
+  // Fit the title and complete grid; the footer remains available by scrolling.
+  const width=Math.max(180,(height-80)*W/(G.y+G.h));
+  shell.style.setProperty('--mobile-poster-width',width+'px');
+}
+function finishMobileText(){
+  if(!mobileLayout())return;
+  finishInline();editorOpen=false;posterMenu=null;
+  document.body.classList.add('minimal-idle');render();
+}
+function mobileInputBar(){
+  let bar=$('mobileInputBar');
+  if(!bar){
+    bar=document.createElement('div');bar.id='mobileInputBar';
+    bar.innerHTML='<span></span><button id="mobileTextSettings">文字设置</button><button id="mobileTextDone">完成</button>';
+    document.body.append(bar);
+    // Keep focus until the click so blur cannot dismiss the settings action first.
+    bar.onpointerdown=e=>e.preventDefault();
+    on('mobileTextDone',finishMobileText);
+    on('mobileTextSettings',()=>{finishInline();editorOpen=true;editTab='text';render();});
+  }
+  const visible=mobileTyping();
+  if(bar.hidden===visible)bar.hidden=!visible;
+  if(visible){
+    const label=bar.querySelector('span'),value=`第 ${selected+1} 格`;
+    if(label.textContent!==value)label.textContent=value;
+  }
+}
+function mobileViewport(){
+  if(!mobileLayout())return;
+  const vp=window.visualViewport,height=vp?.height||innerHeight,width=innerWidth;
+  const active=document.activeElement,input=active&&/^(INPUT|TEXTAREA)$/.test(active.tagName);
+  const rotated=mobileRestWidth&&Math.abs(width-mobileRestWidth)>80;
+  if(!mobileRestHeight||rotated){mobileRestHeight=Math.max(height,document.documentElement.clientHeight);mobileRestWidth=width;}
+  const keyboard=mobileRestHeight-height>120&&(input||document.body.classList.contains('keyboard-open'));
+  // Keyboard closing reports intermediate heights; never fit the poster to those frames.
+  if(!keyboard&&!input){mobileRestHeight=Math.max(mobileRestHeight,height);mobileRestWidth=width;}
+  document.body.classList.toggle('keyboard-open',keyboard);
+  document.documentElement.style.setProperty('--keyboard',keyboard?Math.max(0,innerHeight-height-(vp?.offsetTop||0))+'px':'0px');
+  document.documentElement.style.setProperty('--mobile-input-top',((vp?.offsetTop||0)+height-42-(keyboard?0:($('mobileDock')?.getBoundingClientRect().height||60)))+'px');
+  document.documentElement.style.setProperty('--mobile-visible-height',height+'px');
+  document.body.classList.toggle('mobile-typing',mobileTyping());
+  mobileFitPoster();styleInline();mobileInputBar();
+  clearTimeout(mobileViewportTimer);
+  mobileViewportTimer=setTimeout(mobileEnsureCell,80);
+}
+function initMobileViewport(){
+  window.addEventListener('resize',()=>{
+    const narrow=mobileLayout();
+    if(narrow!==mobileWasNarrow){mobileWasNarrow=narrow;render();}
+    mobileViewport();
+  });
+  window.visualViewport?.addEventListener('resize',mobileViewport);
+  window.visualViewport?.addEventListener('scroll',mobileViewport);
+  document.addEventListener('focusin',()=>{if(mobileLayout())mobileViewport();});
+  document.addEventListener('focusout',()=>setTimeout(mobileViewport,120));
+  mobileViewport();
+}
+const mobileShowInlineBase=showInline;
+showInline=function(focus=false){
+  if(mobileLayout()&&focus)document.body.classList.add('mobile-typing');
+  mobileShowInlineBase(focus);
+  if(mobileLayout()){mobileViewport();mobileEnsureCell();}
+};
+const mobileFinishInlineBase=finishInline;
+finishInline=function(){
+  mobileFinishInlineBase();
+  document.body.classList.remove('mobile-typing');
+  const bar=$('mobileInputBar');if(bar)bar.hidden=true;
+};
+const mobileEditorMarkupBase=editorMarkup;
+editorMarkup=function(){
+  const html=mobileEditorMarkupBase();
+  return mobileLayout()&&editTab==='text'?html.replace(/<textarea id="cellText"[\s\S]*?<\/textarea>/,''):html;
+};
+const mobileRenderBase=render;
+render=function(){
+  mobileRenderBase();
+  if(!mobileLayout())return;
+  document.body.classList.toggle('mobile-menu-open',stage==='edit'&&!!posterMenu);
+  document.body.classList.toggle('mobile-typing',mobileTyping());
+  mobileFitPoster();
+};
+
 // 1.6: protected release. Editing stays local; publication and exports require
 // a server session, review and an immutable server copy of the final image.
 const AGREEMENT_VERSION='2026-09-29-draft';
@@ -825,12 +995,12 @@ function showEntryLogin(){
   if(!entryGate)return;
   entryGate.innerHTML='<div class="language-card entry-login-card"><h1>登录后开始互动</h1><p>确认账号与用户协议后，即可开始答题和创作</p><button class="primary" id="entryLogin">继续登录</button><button class="link" id="entryLanguage">返回语言选择</button></div>';
   entryGate.querySelector('#entryLogin').onclick=enterWebsite;
-  entryGate.querySelector('#entryLanguage').onclick=()=>{if(entryGateBusy)return;sessionStorage.removeItem('d360-language-v110');showEntryLanguages();};
+  entryGate.querySelector('#entryLanguage').onclick=()=>{if(entryGateBusy)return;sessionStorage.removeItem('d360-language-v20');showEntryLanguages();};
 }
 function showEntryLanguages(){
   if(!entryGate)return;
   entryGate.innerHTML='<div class="language-card"><button class="primary" id="chooseEnglish">English</button><button id="chooseChinese" disabled aria-label="中文版本尚未开放">中文</button></div>';
-  entryGate.querySelector('#chooseEnglish').onclick=()=>{sessionStorage.setItem('d360-language-v110','en');showEntryLogin();enterWebsite();};
+  entryGate.querySelector('#chooseEnglish').onclick=()=>{sessionStorage.setItem('d360-language-v20','en');showEntryLogin();enterWebsite();};
   entryGate.querySelector('#chooseEnglish').focus({preventScroll:true});
 }
 async function enterWebsite(){
@@ -856,7 +1026,7 @@ function languageLanding(){
   layer.blocked=[...document.querySelectorAll('header,main,#mobileDock,#previewBanner')].map(element=>[element,element.inert]);
   layer.blocked.forEach(([element])=>{element.inert=true;});
   document.body.classList.add('entry-locked');document.body.append(layer);entryGate=layer;
-  if(sessionStorage.getItem('d360-language-v110')){showEntryLogin();enterWebsite();}else showEntryLanguages();
+  if(sessionStorage.getItem('d360-language-v20')){showEntryLogin();enterWebsite();}else showEntryLanguages();
 }
 async function bootSafety(){document.addEventListener('click',event=>{if(event.target?.id!=='dockConfirm'||stage!=='entry')return;event.preventDefault();event.stopImmediatePropagation();if(entryPicks.size!==3)return;if([0,2,4].every(i=>entryPicks.has(i))){state=newState();historyStack=[];redoStack=[];go(1);scheduleSave();}else{entryErrors++;renderPanel();toast(entryHint());}},true);languageLanding();const auth=new URLSearchParams(location.search).get('auth');if(auth==='ok'){const url=new URL(location.href);url.searchParams.delete('auth');history.replaceState(null,'',url);await restoreAuthContext();}}
 
@@ -950,7 +1120,7 @@ function previewBanner(){
   if(!banner){banner=document.createElement('div');banner.id='previewBanner';banner.className='preview-banner';document.body.prepend(banner);if(entryGate){entryGate.blocked.push([banner,banner.inert]);banner.inert=true;}}
   banner.innerHTML=`<div class="preview-actions"><label>模拟审核 <select id="previewReview"><option value="pass">通过</option><option value="block">不通过</option></select></label>${previewCreator?'<button id="previewBack">返回创作者</button>':''}<button id="previewLanguage">重选语言</button></div>`;
   on('previewBack',previewReturnCreator);
-  on('previewLanguage',()=>{sessionStorage.removeItem('d360-language-v110');languageLanding();});
+  on('previewLanguage',()=>{sessionStorage.removeItem('d360-language-v20');languageLanding();});
 }
 
 bootPolished().then(async()=>{await bootSafety();previewBanner();}).catch(e=>console.error('Preview boot failed',e));
