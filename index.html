@@ -760,12 +760,12 @@ document.addEventListener('pointerdown',event=>{
   render();
 });
 
-// Teach moving once, after the first content edit is finished.
+// Teach moving once, after every grid cell has content and editing has finished.
 let moveHintShown=false;
 const moveHintRenderBase=render;
 render=function(){
   moveHintRenderBase();
-  if(!moveHintShown&&stage==='edit'&&step===3&&guidePhase==='content'&&!editorOpen&&!posterMenu&&!gesture?.active&&state.cells.some(filledCell)){
+  if(!moveHintShown&&stage==='edit'&&step===3&&guidePhase==='content'&&!editorOpen&&!posterMenu&&!gesture?.active&&completeGrid()){
     moveHintShown=true;
     toast('长按格子可拖动交换位置');
   }
