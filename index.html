@@ -1,14 +1,39 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>360 Design Festival · 3.2</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#fff;color:#171717;font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation;transform-origin:center;border:0}button:disabled{cursor:default;color:#aaa}button:focus-visible{outline:2px solid #171717;outline-offset:3px}[hidden]{display:none!important}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>360 Design Festival · 3.4</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#fff;color:#171717;font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation;transform-origin:center;border:0}button:disabled{cursor:default;color:#aaa}button:focus-visible{outline:2px solid #171717;outline-offset:3px}[hidden]{display:none!important}
 #language320{min-height:100vh;min-height:100svh;display:grid;place-content:center;padding:24px}.languages320{width:min(520px,calc(100vw - 48px));display:grid;gap:14px}.languages320 button{min-height:58px;padding:12px 20px;border-radius:8px;background:#f2f2f2;color:#171717;font-size:22px;font-weight:400}.languages320 button[aria-pressed=true]{background:#171717;color:#fff}.load-status320{min-height:23px;text-align:center;color:#737373;font-size:14px;line-height:1.6;margin:18px 0 0}.dots320{display:inline-block;width:3ch;text-align:left}.retry320{display:block;margin:12px auto 0;padding:12px 24px;border-radius:8px;background:#171717;color:#fff}.primary{background:#171717;color:white;border-radius:8px;min-height:44px;padding:12px 24px}.primary:disabled{background:#e9e9e9;color:#a1a1a1}
-#intro320{min-height:100vh;min-height:100svh;background:#f7f7f7;padding-bottom:100px}.top320{height:56px;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 18px}.top320 button{padding:0;background:transparent;min-height:40px}.brand320{font-weight:700;font-size:20px;letter-spacing:-.65px}.help320{font-size:14px;color:#666}.guide320{display:flex;align-items:flex-start;gap:10px;padding:14px 18px;font-size:13px;line-height:1.55;color:#666}.guide320 b{white-space:nowrap;font-style:italic}.paper320{position:relative;width:var(--entry-width320,320px);margin:6px auto 0;background:white;aspect-ratio:1160/1793}.paper320>img{display:block;width:100%;height:100%}.paper320>canvas,.hit-grid320{position:absolute;inset:0;width:100%;height:100%}.hit-grid320 button{position:absolute;padding:0;background:transparent;border-radius:0;outline-offset:-3px}.entry-prompt320{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:calc(100% - 16px);padding:10px 12px;border-radius:9px;background:#edededeb;text-align:center;color:#666;font-size:12px;line-height:1.5;pointer-events:none}.entry-footer320{position:fixed;z-index:2;bottom:0;left:0;right:0;padding:10px 16px max(10px,env(safe-area-inset-bottom));text-align:center;background:#f7f7f7}.entry-footer320 .primary{min-width:150px}.entry-footer320 .load-status320{margin:0 0 7px}.entry-footer320 .retry320{margin:0 auto 7px;padding:8px 20px}
+#intro320{min-height:100vh;min-height:100svh;background:#f7f7f7;padding-bottom:0}.top320{height:56px;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 18px}.top320 button{padding:0;background:transparent;min-height:40px}.brand320{font-weight:700;font-size:20px;letter-spacing:-.65px}.help320{font-size:14px;color:#666}.guide320{display:flex;align-items:flex-start;gap:10px;padding:14px 18px;font-size:13px;line-height:1.55;color:#666}.guide320 b{white-space:nowrap;font-style:normal}.paper320{position:relative;width:var(--entry-width320,320px);margin:6px auto 0;background:white;aspect-ratio:1160/1793}.paper320>img{display:block;width:100%;height:100%}.paper320>canvas,.hit-grid320{position:absolute;inset:0;width:100%;height:100%}.hit-grid320 button{position:absolute;padding:0;background:transparent;border-radius:0;outline-offset:-3px}.entry-prompt320{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:calc(100% - 16px);padding:10px 12px;border-radius:9px;background:#edededeb;text-align:center;color:#666;font-size:12px;line-height:1.5;pointer-events:none}.entry-footer320{position:relative;z-index:2;padding:28px 16px max(16px,env(safe-area-inset-bottom));text-align:center;background:#f7f7f7}.entry-footer320 .primary{min-width:150px}.entry-footer320 .load-status320{margin:0 0 7px}.entry-footer320 .load-status320:empty{display:none}.entry-footer320 .retry320{margin:0 auto 7px;padding:8px 20px}
 #dialog320{padding:0;border:0;border-radius:14px;width:calc(100% - 32px);max-width:520px;background:white;color:#171717;max-height:calc(100svh - 40px);overflow:auto}#dialog320::backdrop{background:#0005}.dialog-inner320{padding:24px}.dialog-head320{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px}.dialog-head320 h2{margin:0;font-size:22px;font-weight:400}.close320{padding:0;background:transparent;line-height:1;font-size:28px;width:28px;height:28px;color:#171717}.consent320{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.7;margin:20px 0}.consent320 input{width:16px;height:16px;margin:3px 0 0;accent-color:#171717}.consent320 a{color:inherit;text-decoration:underline}.dialog-main320>.primary{width:100%;margin-top:4px}.terms320{font-size:13px;line-height:1.7;white-space:pre-wrap;max-height:52svh;overflow:auto;color:#444}.steps320{font-size:14px;line-height:1.8;color:#555;padding-left:20px}.steps320 li{margin-bottom:8px}
 #editorFrame320{position:fixed;inset:0;z-index:10;width:100%;height:100%;height:100dvh;border:0;visibility:hidden;background:#f7f7f7}#editorFrame320.ready320{visibility:visible}body.editor-active320{overflow:hidden}
-@media(min-width:721px){.top320{height:64px;padding:0 28px}.brand320{font-size:24px}.help320{font-size:17px}.guide320{font-size:16px;padding:18px 28px}.entry-footer320{padding-bottom:14px}.entry-footer320 .primary{font-size:18px;padding:14px 25px}.entry-prompt320{font-size:14px}}
+@media(min-width:721px){.top320{height:64px;padding:0 28px}.brand320{font-size:24px}.help320{font-size:17px}.guide320{font-size:16px;padding:18px 28px}.entry-footer320{padding-bottom:max(16px,env(safe-area-inset-bottom))}.entry-footer320 .primary{font-size:18px;padding:14px 25px}.entry-prompt320{font-size:14px}}
+
+/* 3.3: reset native mobile button colors and only the close control's focus box. */
+.brand320,.brand320:hover,.brand320:active,.brand320:focus{color:#171717;-webkit-text-fill-color:#171717;appearance:none;-webkit-appearance:none}
+.close320,.close320:hover,.close320:active,.close320:focus,.close320:focus-visible{appearance:none;-webkit-appearance:none;border:0!important;outline:none!important;box-shadow:none!important;background:transparent!important;color:#171717;-webkit-text-fill-color:#171717;-webkit-tap-highlight-color:transparent;width:44px;height:44px;min-width:44px;min-height:44px;display:grid;place-items:center;flex:none;margin:-8px -8px -8px 0}
 </style></head><body><main id="language320"><div class="languages320"><button data-lang="en" aria-pressed="false">english</button><button data-lang="zh" aria-pressed="false">中文</button></div><p class="load-status320" id="languageStatus320" role="status" aria-live="polite"></p><button class="retry320" id="languageRetry320" hidden></button><noscript>请允许 JavaScript 以制作海报。 / Enable JavaScript to create your poster.</noscript></main>
 <section id="intro320" hidden><header class="top320" id="top320"><button class="brand320" id="home320" aria-label="返回语言选择 / Back to language selection">360 Design Festival</button><button class="help320" id="help320">Instructions</button></header><div class="guide320" id="guide320"><b>1 / 3</b><span id="guideText320"></span></div><div class="paper320" id="paper320"><img id="entryPoster320" alt="Design 360 Festival poster"><canvas id="marks320" width="1160" height="1793" aria-hidden="true"></canvas><div class="hit-grid320" id="entryHits320"></div><div class="entry-prompt320" id="entryPrompt320" role="status" hidden></div></div><footer class="entry-footer320" id="entryFooter320"><p class="load-status320" id="introStatus320" role="status" aria-live="polite"></p><button class="retry320" id="introRetry320" hidden></button><button class="primary" id="entryStart320" disabled></button></footer></section>
-<dialog id="dialog320"><div class="dialog-inner320"><div class="dialog-head320"><h2 id="dialogTitle320"></h2><button class="close320" id="dialogClose320" aria-label="Close">×</button></div><div class="dialog-main320" id="dialogBody320"></div></div></dialog><script>(()=>{
+<dialog id="dialog320"><div class="dialog-inner320"><div class="dialog-head320"><h2 id="dialogTitle320"></h2><button class="close320" id="dialogClose320" aria-label="Close">×</button></div><div class="dialog-main320" id="dialogBody320"></div></div></dialog><script>// One proportioned mark for the entry, live selection, animation and PNG export.
+// Coordinates use a 100-unit outer diameter; strokes follow that diameter.
+function drawSelectionBadge340(ctx,x,y,size,progress=1,scale=1){
+ if(!(size>0)||!(scale>0))return;
+ ctx.save();
+ ctx.translate(x+size/2,y+size/2);ctx.scale(size/100*scale,size/100*scale);ctx.translate(-50,-50);
+ ctx.lineCap='butt';ctx.lineJoin='miter';ctx.miterLimit=10;
+ ctx.beginPath();ctx.arc(50,50,47.25,0,Math.PI*2);
+ ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=5.5;ctx.stroke();
+ const a=[21,59],b=[41,78],c=[77,22];
+ const short=Math.hypot(b[0]-a[0],b[1]-a[1]),long=Math.hypot(c[0]-b[0],c[1]-b[1]);
+ const distance=(short+long)*Math.max(0,Math.min(1,progress));
+ if(distance>0){
+  ctx.beginPath();ctx.moveTo(...a);
+  if(distance<short)ctx.lineTo(a[0]+(b[0]-a[0])*distance/short,a[1]+(b[1]-a[1])*distance/short);
+  else{ctx.lineTo(...b);const part=Math.min(1,(distance-short)/long);ctx.lineTo(b[0]+(c[0]-b[0])*part,b[1]+(c[1]-b[1])*part);}
+  ctx.lineWidth=7;ctx.stroke();
+ }
+ ctx.restore();
+}
+
+(()=>{
  'use strict';
- const files={"css": "site-assets/d360-320/editor.ab116ab9c7a5.css", "fonts": ["site-assets/d360-320/chinese-ui.79cb5d6237ce.woff2", "site-assets/d360-320/d360bold.b7817dde4901.woff2", "site-assets/d360-320/d360medium.207882973c88.woff2", "site-assets/d360-320/d360roman.8b9415607dce.woff2"], "entry": {"en": "site-assets/d360-320/entry.en.222fa165bfb1.svg", "zh": "site-assets/d360-320/entry.zh.97dda82ab851.svg"}, "terms": {"en": "site-assets/d360-320/terms.en.49c57e3f179f.txt", "zh": "site-assets/d360-320/terms.zh.bbdebb4b75c5.txt"}, "en": "site-assets/d360-320/editor.en.c6c89880b6f9.js", "zh": "site-assets/d360-320/editor.zh.faa87a84dcbb.js"},inline={};
+ const files={"css": "site-assets/d360-340/editor.dfeb05971d85.css", "fonts": ["site-assets/d360-340/chinese-ui.79cb5d6237ce.woff2", "site-assets/d360-340/d360bold.b7817dde4901.woff2", "site-assets/d360-340/d360medium.207882973c88.woff2", "site-assets/d360-340/d360roman.8b9415607dce.woff2"], "entry": {"en": "site-assets/d360-340/entry.en.222fa165bfb1.svg", "zh": "site-assets/d360-340/entry.zh.97dda82ab851.svg"}, "terms": {"en": "site-assets/d360-340/terms.en.49c57e3f179f.txt", "zh": "site-assets/d360-340/terms.zh.bbdebb4b75c5.txt"}, "en": "site-assets/d360-340/editor.en.9148bdc0f9d9.js", "zh": "site-assets/d360-340/editor.zh.76dbee3f579b.js"},inline={};
  const $=id=>document.getElementById(id),W=1160,H=1793,r=W/1559.06;
  const grid={x:56.69*r,y:382*r,w:1445.15*r,h:1452.97*r};
  const picks=new Set(),motions=new Map(),keys=[[0,0],[100,1.08],[185,.975],[270,1.01],[420,1]];
@@ -91,7 +116,8 @@
  function fit(){
   if(view!=='intro')return;
   const viewport=window.visualViewport,height=viewport?.height||innerHeight;
-  const available=height-$('top320').offsetHeight-$('guide320').offsetHeight-$('entryFooter320').offsetHeight-24;
+  const paper=$('paper320'),paperGap=parseFloat(getComputedStyle(paper).marginTop)||0;
+  const available=height-$('top320').offsetHeight-$('guide320').offsetHeight-$('entryFooter320').offsetHeight-paperGap-16;
   const mobile=innerWidth<=720;
   $('paper320').style.setProperty('--entry-width320',Math.max(100,Math.min(mobile?320:560,innerWidth-32,available*W/H))+'px');
  }
@@ -108,15 +134,7 @@
  }
  function badge(x,y,size,elapsed){
   const factor=elapsed>=420?1:scale(elapsed);if(factor<=0)return;
-  const cx=x+size/2,cy=y+size/2;ctx.save();ctx.translate(cx,cy);ctx.scale(factor,factor);ctx.translate(-cx,-cy);
-  ctx.beginPath();ctx.arc(cx,cy,size/2-2,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=grid.w/3*.013;ctx.stroke();
-  const a=[x+size*.21,y+size*.59],b=[x+size*.41,y+size*.78],c=[x+size*.77,y+size*.22];
-  const short=Math.hypot(b[0]-a[0],b[1]-a[1]),long=Math.hypot(c[0]-b[0],c[1]-b[1]);
-  const distance=(short+long)*(.2+.8*Math.max(0,Math.min(1,elapsed/200)));
-  ctx.beginPath();ctx.moveTo(...a);
-  if(distance<short)ctx.lineTo(a[0]+(b[0]-a[0])*distance/short,a[1]+(b[1]-a[1])*distance/short);
-  else{ctx.lineTo(...b);const q=Math.min(1,(distance-short)/long);ctx.lineTo(b[0]+(c[0]-b[0])*q,b[1]+(c[1]-b[1])*q);}
-  ctx.lineWidth=6;ctx.stroke();ctx.restore();
+  drawSelectionBadge340(ctx,x,y,size,.2+.8*Math.max(0,Math.min(1,elapsed/200)),factor);
  }
  function paint(){
   ctx.clearRect(0,0,W,H);const size=grid.w/3,now=performance.now();
@@ -183,6 +201,11 @@
  $('introRetry320').onclick=()=>{editorTask=null;startEditor();};
  $('help320').onclick=()=>modal(t().help,`<ol class="steps320">${(language==='zh'?['选择关键词和网格，分别点击确定。','点格子，选择一种内容类型和填充方式。','逐格填写至全部完成；随机和整图可反复调整，满意后确认。','勾选答案，再点击完成创作。','保存海报，或邀请朋友答题。']:['Choose a keyword and grid size. Confirm each choice.','Tap a square. Choose one content type and filling method.','Fill every square. Adjust random results and full-grid images, then confirm.','Select your answer squares, then finish creation.','Save your poster or invite friends to answer.']).map(s=>`<li>${s}</li>`).join('')}</ol>`);
  window.addEventListener('resize',fit);window.visualViewport?.addEventListener('resize',fit);
+ // Loading/retry text can change the action area's height on a narrow screen.
+ if(typeof ResizeObserver==='function'){
+  const layoutObserver=new ResizeObserver(()=>requestAnimationFrame(fit));
+  for(const id of ['top320','guide320','entryFooter320'])layoutObserver.observe($(id));
+ }
  document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;motions.clear();}else if(view==='intro')paint();});
  // Deliberately do not read language, creation or answer state from storage.
 })();
@@ -190,7 +213,7 @@
 // One short response for deliberate presses and newly available selections.
 (function installButtonMotion320(){
  const active=new Map(),running=new WeakMap();let scheduled=false;
- const control=button=>!button.matches('.cell-hit,[data-entry-cell],.poster-control');
+ const control=button=>!button.matches('.cell-hit,[data-entry-cell],.poster-control,.close320,.close,#closeEditor');
  function key(button){
   if(button.id)return '#'+button.id;
   for(const name of ['topic280','grid280','kind280','method280','lang','swatch'])
@@ -200,8 +223,13 @@
  function selected(button){return !button.disabled&&(button.getAttribute('aria-pressed')==='true'||['primary','active','selected','selected-language'].some(c=>button.classList.contains(c)));}
  function pop(button){
   if(!button.animate||!button.isConnected)return;
+  const rect=button.getBoundingClientRect(),size=Math.max(rect.width,rect.height,1);
+  // Cap physical movement instead of enlarging wide buttons by a fixed percent.
+  // Small options move about 1.6px; controls wider than 240px move only 0.8px.
+  const movement=.8+.8*Math.max(0,Math.min(1,(240-size)/80));
+  const press=1-Math.min(.035,movement/size),rebound=1+Math.min(.022,movement*.5/size);
   running.get(button)?.cancel();
-  running.set(button,button.animate([{transform:'scale(.96)'},{transform:'scale(1.03)',offset:.58},{transform:'scale(1)'}],{duration:300,easing:'cubic-bezier(.2,.75,.3,1)'}));
+  running.set(button,button.animate([{transform:`scale(${press})`},{transform:`scale(${rebound})`,offset:.58},{transform:'scale(1)'}],{duration:260,easing:'cubic-bezier(.2,.75,.3,1)'}));
  }
  function scan(){
   scheduled=false;
