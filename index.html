@@ -1,50 +1,221 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="description" content="Create your own 360 Design Festival poster."><title>360 Design Festival · 3.1</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#fff;color:#171717;font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}#fastEntry{min-height:100vh;min-height:100svh;display:grid;place-content:center;padding:24px}#fastLanguages{width:min(520px,calc(100vw - 48px));display:grid;gap:14px}#fastLanguages button{min-height:58px;padding:12px 20px;border:0;border-radius:8px;background:#f2f2f2;color:#171717;font:400 22px/1.4 Arial,"PingFang SC","Microsoft YaHei",sans-serif;cursor:pointer;touch-action:manipulation}#fastLanguages button[aria-pressed=true]{background:#171717;color:#fff}#fastStatus{max-width:520px;min-height:44px;margin:18px 0 0;text-align:center;color:#737373;font-size:14px;line-height:1.6}#fastRetry{justify-self:center;margin-top:8px;padding:10px 22px;border:0;border-radius:8px;background:#171717;color:#fff;font-size:15px;cursor:pointer}#fastRetry[hidden]{display:none}
-</style></head><body><main id="fastEntry"><div id="fastLanguages"><button id="fastEnglish" data-lang="en" aria-pressed="false">english</button><button id="fastChinese" data-lang="zh" aria-pressed="false">中文</button></div><p id="fastStatus" role="status" aria-live="polite"></p><button id="fastRetry" hidden>重新加载 / Retry</button><noscript>请允许 JavaScript 以制作海报。 / Enable JavaScript to create your poster.</noscript></main>
-<script>
-(() => {
-  const files = {"css": "site-assets/d360-310-fast/app.9952495d3a13.css", "en": "site-assets/d360-310-fast/app.en.cff04e82f273.js", "zh": "site-assets/d360-310-fast/app.zh.54f861e054c3.js"};
-  let busy = false, active = 'en', attempt = 0;
-  const status = document.getElementById('fastStatus'), retry = document.getElementById('fastRetry');
-  function stylesheet() {
-    const existing = document.getElementById('fastStyles');
-    if (existing?.sheet) return Promise.resolve();
-    existing?.remove();
-    return new Promise((resolve, reject) => {
-      const link = document.createElement('link'); link.id = 'fastStyles'; link.rel = 'stylesheet'; link.href = files.css;
-      const timer = setTimeout(() => { link.remove(); reject(Error('timeout')); }, 25000);
-      link.onload = () => { clearTimeout(timer); resolve(); };
-      link.onerror = () => { clearTimeout(timer); link.remove(); reject(Error('stylesheet')); };
-      document.head.append(link);
-    });
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ffffff"><title>360 Design Festival · 3.2</title><style>*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#fff;color:#171717;font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation;transform-origin:center;border:0}button:disabled{cursor:default;color:#aaa}button:focus-visible{outline:2px solid #171717;outline-offset:3px}[hidden]{display:none!important}
+#language320{min-height:100vh;min-height:100svh;display:grid;place-content:center;padding:24px}.languages320{width:min(520px,calc(100vw - 48px));display:grid;gap:14px}.languages320 button{min-height:58px;padding:12px 20px;border-radius:8px;background:#f2f2f2;color:#171717;font-size:22px;font-weight:400}.languages320 button[aria-pressed=true]{background:#171717;color:#fff}.load-status320{min-height:23px;text-align:center;color:#737373;font-size:14px;line-height:1.6;margin:18px 0 0}.dots320{display:inline-block;width:3ch;text-align:left}.retry320{display:block;margin:12px auto 0;padding:12px 24px;border-radius:8px;background:#171717;color:#fff}.primary{background:#171717;color:white;border-radius:8px;min-height:44px;padding:12px 24px}.primary:disabled{background:#e9e9e9;color:#a1a1a1}
+#intro320{min-height:100vh;min-height:100svh;background:#f7f7f7;padding-bottom:100px}.top320{height:56px;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 18px}.top320 button{padding:0;background:transparent;min-height:40px}.brand320{font-weight:700;font-size:20px;letter-spacing:-.65px}.help320{font-size:14px;color:#666}.guide320{display:flex;align-items:flex-start;gap:10px;padding:14px 18px;font-size:13px;line-height:1.55;color:#666}.guide320 b{white-space:nowrap;font-style:italic}.paper320{position:relative;width:var(--entry-width320,320px);margin:6px auto 0;background:white;aspect-ratio:1160/1793}.paper320>img{display:block;width:100%;height:100%}.paper320>canvas,.hit-grid320{position:absolute;inset:0;width:100%;height:100%}.hit-grid320 button{position:absolute;padding:0;background:transparent;border-radius:0;outline-offset:-3px}.entry-prompt320{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:calc(100% - 16px);padding:10px 12px;border-radius:9px;background:#edededeb;text-align:center;color:#666;font-size:12px;line-height:1.5;pointer-events:none}.entry-footer320{position:fixed;z-index:2;bottom:0;left:0;right:0;padding:10px 16px max(10px,env(safe-area-inset-bottom));text-align:center;background:#f7f7f7}.entry-footer320 .primary{min-width:150px}.entry-footer320 .load-status320{margin:0 0 7px}.entry-footer320 .retry320{margin:0 auto 7px;padding:8px 20px}
+#dialog320{padding:0;border:0;border-radius:14px;width:calc(100% - 32px);max-width:520px;background:white;color:#171717;max-height:calc(100svh - 40px);overflow:auto}#dialog320::backdrop{background:#0005}.dialog-inner320{padding:24px}.dialog-head320{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px}.dialog-head320 h2{margin:0;font-size:22px;font-weight:400}.close320{padding:0;background:transparent;line-height:1;font-size:28px;width:28px;height:28px;color:#171717}.consent320{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.7;margin:20px 0}.consent320 input{width:16px;height:16px;margin:3px 0 0;accent-color:#171717}.consent320 a{color:inherit;text-decoration:underline}.dialog-main320>.primary{width:100%;margin-top:4px}.terms320{font-size:13px;line-height:1.7;white-space:pre-wrap;max-height:52svh;overflow:auto;color:#444}.steps320{font-size:14px;line-height:1.8;color:#555;padding-left:20px}.steps320 li{margin-bottom:8px}
+#editorFrame320{position:fixed;inset:0;z-index:10;width:100%;height:100%;height:100dvh;border:0;visibility:hidden;background:#f7f7f7}#editorFrame320.ready320{visibility:visible}body.editor-active320{overflow:hidden}
+@media(min-width:721px){.top320{height:64px;padding:0 28px}.brand320{font-size:24px}.help320{font-size:17px}.guide320{font-size:16px;padding:18px 28px}.entry-footer320{padding-bottom:14px}.entry-footer320 .primary{font-size:18px;padding:14px 25px}.entry-prompt320{font-size:14px}}
+</style></head><body><main id="language320"><div class="languages320"><button data-lang="en" aria-pressed="false">english</button><button data-lang="zh" aria-pressed="false">中文</button></div><p class="load-status320" id="languageStatus320" role="status" aria-live="polite"></p><button class="retry320" id="languageRetry320" hidden></button><noscript>请允许 JavaScript 以制作海报。 / Enable JavaScript to create your poster.</noscript></main>
+<section id="intro320" hidden><header class="top320" id="top320"><button class="brand320" id="home320" aria-label="返回语言选择 / Back to language selection">360 Design Festival</button><button class="help320" id="help320">Instructions</button></header><div class="guide320" id="guide320"><b>1 / 3</b><span id="guideText320"></span></div><div class="paper320" id="paper320"><img id="entryPoster320" alt="Design 360 Festival poster"><canvas id="marks320" width="1160" height="1793" aria-hidden="true"></canvas><div class="hit-grid320" id="entryHits320"></div><div class="entry-prompt320" id="entryPrompt320" role="status" hidden></div></div><footer class="entry-footer320" id="entryFooter320"><p class="load-status320" id="introStatus320" role="status" aria-live="polite"></p><button class="retry320" id="introRetry320" hidden></button><button class="primary" id="entryStart320" disabled></button></footer></section>
+<dialog id="dialog320"><div class="dialog-inner320"><div class="dialog-head320"><h2 id="dialogTitle320"></h2><button class="close320" id="dialogClose320" aria-label="Close">×</button></div><div class="dialog-main320" id="dialogBody320"></div></div></dialog><script>(()=>{
+ 'use strict';
+ const files={"css": "site-assets/d360-320/editor.ab116ab9c7a5.css", "fonts": ["site-assets/d360-320/chinese-ui.79cb5d6237ce.woff2", "site-assets/d360-320/d360bold.b7817dde4901.woff2", "site-assets/d360-320/d360medium.207882973c88.woff2", "site-assets/d360-320/d360roman.8b9415607dce.woff2"], "entry": {"en": "site-assets/d360-320/entry.en.222fa165bfb1.svg", "zh": "site-assets/d360-320/entry.zh.97dda82ab851.svg"}, "terms": {"en": "site-assets/d360-320/terms.en.49c57e3f179f.txt", "zh": "site-assets/d360-320/terms.zh.bbdebb4b75c5.txt"}, "en": "site-assets/d360-320/editor.en.c6c89880b6f9.js", "zh": "site-assets/d360-320/editor.zh.faa87a84dcbb.js"},inline={};
+ const $=id=>document.getElementById(id),W=1160,H=1793,r=W/1559.06;
+ const grid={x:56.69*r,y:382*r,w:1445.15*r,h:1452.97*r};
+ const picks=new Set(),motions=new Map(),keys=[[0,0],[100,1.08],[185,.975],[270,1.01],[420,1]];
+ const ctx=$('marks320').getContext('2d');
+ let language='en',authed=false,view='language',errors=0,frame=0,attempt=0,posterTask=null,editorTask=null,editorFrame=null;
+ let dotTimer=0,promptTimer=0,loadTimer=0,loading=false,loadingKind='',messageIndex=0;
+ const copy={en:{opening:'Opening',retry:'Retry',failed:'Connection interrupted. Please try again.',fonts:'Preparing the editor',login:'WeChat sign-in',consent:'I have read and agree to the ',terms:'User Content Agreement and Privacy Notice',continue:'Sign in & continue',close:'Close',help:'Instructions',first:'Step 1: Tap the 3 squares containing “design” or “设计节”.',hint:'Tap the 3 squares containing “design” or “设计节”.',answer:'Choose the top-left, top-right and center squares.',start:'Start creating',choose:n=>`Select ${n} / 3`,back:'Back to sign-in',read:'Loading…'},zh:{opening:'正在打开',retry:'重试',failed:'连接暂时不畅，请检查网络后重试。',fonts:'正在准备创作界面',login:'微信登录',consent:'我已阅读并同意',terms:'《用户创作内容责任约定与隐私说明》',continue:'登录并继续',close:'关闭',help:'使用说明',first:'第一步：点击包含「design」和「设计节」的3个格子',hint:'点击包含「design」和「设计节」的3个格子',answer:'请选择左上、右上和中间的3个格子',start:'开始创作',choose:n=>`请选择 ${n} / 3`,back:'返回登录',read:'正在读取…'}};
+ const t=()=>copy[language];
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function status(){return view==='language'?$('languageStatus320'):$('introStatus320');}
+ function retry(){return view==='language'?$('languageRetry320'):$('introRetry320');}
+ function stopLoading(){clearInterval(dotTimer);dotTimer=0;clearTimeout(loadTimer);loading=false;}
+ function startLoading(kind){
+  stopLoading();loading=true;loadingKind=kind;retry().hidden=true;messageIndex=0;
+  status().innerHTML=`<span>${kind==='editor'?t().fonts:t().opening}</span><span class="dots320" aria-hidden="true">.</span>`;
+  const dots=[1,2,3,2];
+  dotTimer=setInterval(()=>{messageIndex=(messageIndex+1)%dots.length;status().querySelector('.dots320')?.replaceChildren(document.createTextNode('.'.repeat(dots[messageIndex])));},280);
+ }
+ function fail(message){stopLoading();status().textContent=message||t().failed;retry().textContent=t().retry;retry().hidden=false;$('entryStart320').disabled=picks.size!==3;}
+ function clearStatus(){stopLoading();$('languageStatus320').textContent='';$('introStatus320').textContent='';$('languageRetry320').hidden=true;$('introRetry320').hidden=true;}
+ async function getText(ref){
+  if(Object.prototype.hasOwnProperty.call(inline,ref))return inline[ref];
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+  try{const response=await fetch(ref,{signal:controller.signal});if(!response.ok)throw Error(t().failed);return await response.text();}finally{clearTimeout(timer);}
+ }
+ async function primeFont(ref){
+  if(ref.startsWith('data:'))return;
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+  try{const response=await fetch(ref,{signal:controller.signal,priority:'low'});if(!response.ok)throw Error(t().failed);await response.arrayBuffer();}finally{clearTimeout(timer);}
+ }
+ function resources(){
+  if(!editorTask){
+   editorTask=Promise.all([getText(files.css),getText(files[language]),...files.fonts.map(primeFont)]).then(([css,code])=>({css,code}));
+   editorTask.catch(()=>{editorTask=null;});
   }
-  async function start(lang) {
-    if (busy) return;
-    busy = true; active = lang; retry.hidden = true; const current = ++attempt;
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    document.querySelectorAll('#fastLanguages button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-    status.textContent = lang === 'zh' ? '正在打开…' : 'Opening…';
-    const controller = new AbortController();
-    const timer = setTimeout(() => { if (current === attempt) { status.textContent = lang === 'zh' ? '连接较慢，请稍候…' : 'The connection is slow. Still preparing…'; } }, 7000);
-    const deadline = setTimeout(() => controller.abort(), 25000);
-    try {
-      const [code] = await Promise.all([
-        fetch(files[lang], { signal: controller.signal }).then(r => { if (!r.ok) throw Error('script'); return r.text(); }),
-        stylesheet()
-      ]);
-      if (current !== attempt) return;
-      try { sessionStorage.setItem('d360-language-v25', lang); } catch {}
-      const script = document.createElement('script'); script.textContent = code; document.body.append(script);
-    } catch {
-      status.textContent = lang === 'zh' ? '连接暂时不畅，请检查网络后重试。' : 'Connection interrupted. Check your network and try again.';
-      retry.textContent = lang === 'zh' ? '重新加载' : 'Retry'; retry.hidden = false;
-    } finally { clearTimeout(timer); clearTimeout(deadline); busy = false; }
+  return editorTask;
+ }
+ function poster(lang){
+  return new Promise((resolve,reject)=>{
+   const image=new Image(),timer=setTimeout(()=>{image.onload=image.onerror=null;reject(Error(t().failed));},25000);
+   image.onload=async()=>{try{if(image.decode)await image.decode();clearTimeout(timer);resolve(image);}catch(error){clearTimeout(timer);reject(error);}};
+   image.onerror=()=>{clearTimeout(timer);reject(Error(t().failed));};image.src=files.entry[lang];
+  });
+ }
+ function modal(title,body){
+  $('dialogTitle320').textContent=title;$('dialogBody320').innerHTML=body;$('dialogClose320').setAttribute('aria-label',t().close);
+  if(!$('dialog320').open)$('dialog320').showModal();
+ }
+ function login(){
+  modal(t().login,`<label class="consent320"><input id="consent320" type="checkbox"><span>${t().consent}<a href="#" id="readTerms320">${t().terms}</a></span></label><button class="primary" id="signIn320" disabled>${t().continue}</button>`);
+  $('consent320').onchange=()=>{$('signIn320').disabled=!$('consent320').checked;};
+  $('readTerms320').onclick=async event=>{
+   event.preventDefault();modal(t().terms,`<div class="terms320" id="termsCopy320">${t().read}</div><button class="primary" id="termsBack320">${t().back}</button>`);$('termsBack320').onclick=login;
+   try{const text=await getText(files.terms[language]);if($('termsCopy320'))$('termsCopy320').textContent=text;}catch{if($('termsCopy320'))$('termsCopy320').textContent=t().failed;}
+  };
+  $('signIn320').onclick=()=>{if(!$('consent320').checked)return;authed=true;$('dialog320').close();enterIntro();};
+ }
+ async function choose(lang){
+  if(loading&&language===lang){if(!authed&&!$('dialog320').open)login();return;}
+  language=lang;attempt++;editorTask=null;authed=false;clearStatus();
+  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
+  startLoading('poster');posterTask=poster(lang);posterTask.catch(()=>{});login();
+ }
+ async function enterIntro(){
+  const token=attempt;startLoading('poster');
+  try{
+   const image=await posterTask;if(token!==attempt||!authed)return;
+   $('entryPoster320').src=image.src;
+   if($('entryPoster320').decode)await $('entryPoster320').decode();
+   if(token!==attempt)return;
+   clearStatus();view='intro';$('language320').hidden=true;$('intro320').hidden=false;
+   $('guideText320').textContent=t().first;$('help320').textContent=t().help;errors=0;picks.clear();motions.clear();
+   const labels=['des ign','360','设计 节','360','des ign','fest ival','202 6','11. 26-','11. 29'];
+   for(const b of document.querySelectorAll('[data-entry-cell]'))b.setAttribute('aria-label',(language==='zh'?`第${+b.dataset.entryCell+1}格：`:`Square ${+b.dataset.entryCell+1}: `)+labels[+b.dataset.entryCell]);
+   updateSelection();fit();hint();
+   // Merely viewing this fixed poster does not request any editor files or fonts.
+  }catch(error){if(token===attempt)fail(error.message);}
+ }
+ function fit(){
+  if(view!=='intro')return;
+  const viewport=window.visualViewport,height=viewport?.height||innerHeight;
+  const available=height-$('top320').offsetHeight-$('guide320').offsetHeight-$('entryFooter320').offsetHeight-24;
+  const mobile=innerWidth<=720;
+  $('paper320').style.setProperty('--entry-width320',Math.max(100,Math.min(mobile?320:560,innerWidth-32,available*W/H))+'px');
+ }
+ function hint(){clearTimeout(promptTimer);$('entryPrompt320').textContent=errors>=3?t().answer:t().hint;$('entryPrompt320').hidden=false;promptTimer=setTimeout(()=>{$('entryPrompt320').hidden=true;},4000);}
+ function updateSelection(){
+  $('entryStart320').disabled=picks.size!==3||loading;
+  $('entryStart320').textContent=picks.size===3?t().start:t().choose(picks.size);
+  document.querySelectorAll('[data-entry-cell]').forEach(b=>b.setAttribute('aria-pressed',String(picks.has(+b.dataset.entryCell))));paint();
+ }
+ function scale(elapsed){
+  if(elapsed<=0)return 0;
+  for(let i=1;i<keys.length;i++){const [end,value]=keys[i],[start,previous]=keys[i-1];if(elapsed<=end){const q=1-(1-(elapsed-start)/(end-start))**3;return previous+(value-previous)*q;}}
+  return 1;
+ }
+ function badge(x,y,size,elapsed){
+  const factor=elapsed>=420?1:scale(elapsed);if(factor<=0)return;
+  const cx=x+size/2,cy=y+size/2;ctx.save();ctx.translate(cx,cy);ctx.scale(factor,factor);ctx.translate(-cx,-cy);
+  ctx.beginPath();ctx.arc(cx,cy,size/2-2,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=grid.w/3*.013;ctx.stroke();
+  const a=[x+size*.21,y+size*.59],b=[x+size*.41,y+size*.78],c=[x+size*.77,y+size*.22];
+  const short=Math.hypot(b[0]-a[0],b[1]-a[1]),long=Math.hypot(c[0]-b[0],c[1]-b[1]);
+  const distance=(short+long)*(.2+.8*Math.max(0,Math.min(1,elapsed/200)));
+  ctx.beginPath();ctx.moveTo(...a);
+  if(distance<short)ctx.lineTo(a[0]+(b[0]-a[0])*distance/short,a[1]+(b[1]-a[1])*distance/short);
+  else{ctx.lineTo(...b);const q=Math.min(1,(distance-short)/long);ctx.lineTo(b[0]+(c[0]-b[0])*q,b[1]+(c[1]-b[1])*q);}
+  ctx.lineWidth=6;ctx.stroke();ctx.restore();
+ }
+ function paint(){
+  ctx.clearRect(0,0,W,H);const size=grid.w/3,now=performance.now();
+  for(const index of picks){
+   const x=grid.x+(index%3)*size,y=grid.y+Math.floor(index/3)*grid.h/3;
+   const inset=size*.035,step=(size-2*inset)/(23+.469),radius=step*.2345;
+   ctx.fillStyle='#000';ctx.beginPath();
+   for(let row=0;row<24;row++)for(let col=0;col<24;col++){const xx=x+inset+radius+col*step,yy=y+inset+radius+row*step;ctx.moveTo(xx+radius,yy);ctx.arc(xx,yy,radius,0,Math.PI*2);}
+   ctx.fill();badge(x,y,size*.265,motions.has(index)?now-motions.get(index):420);
   }
-  document.querySelectorAll('#fastLanguages button').forEach(button => button.onclick = () => start(button.dataset.lang));
-  retry.onclick = () => start(active);
-  let remembered; try { remembered = sessionStorage.getItem('d360-language-v25'); } catch {}
-  if (remembered === 'en' || remembered === 'zh') requestAnimationFrame(() => requestAnimationFrame(() => start(remembered)));
+ }
+ function animate(now){
+  frame=0;for(const [index,start]of motions)if(now-start>=420)motions.delete(index);
+  paint();if(motions.size)frame=requestAnimationFrame(animate);
+ }
+ function select(index){
+  if(loading||view!=='intro')return;
+  if(!editorTask)resources().catch(()=>{});
+  if(picks.has(index)){picks.delete(index);motions.delete(index);}else{picks.add(index);motions.set(index,performance.now());}
+  updateSelection();if(motions.size&&!frame)frame=requestAnimationFrame(animate);
+ }
+ function resetHome(){
+  attempt++;clearStatus();clearTimeout(promptTimer);cancelAnimationFrame(frame);frame=0;
+  if(editorFrame){editorFrame.remove();editorFrame=null;}
+  document.body.classList.remove('editor-active320');if($('dialog320').open)$('dialog320').close();
+  authed=false;view='language';picks.clear();motions.clear();errors=0;editorTask=null;posterTask=null;
+  $('intro320').hidden=true;$('language320').hidden=false;
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed','false'));
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+ }
+ async function startEditor(){
+  if(loading||view!=='intro')return;
+  if(picks.size!==3||![0,2,4].every(index=>picks.has(index))){errors++;hint();return;}
+  const token=attempt;startLoading('editor');$('entryStart320').disabled=true;
+  try{
+   const resources320=await resources();if(token!==attempt)return;
+   const cssBase=new URL(files.css,location.href);
+   const css=resources320.css.replace(/url\((['"]?)([^)'"\s]+)\1\)/g,(whole,quote,ref)=>ref.startsWith('data:')?whole:'url('+JSON.stringify(new URL(ref,cssBase).href)+')');
+   editorFrame?.remove();editorFrame=document.createElement('iframe');editorFrame.id='editorFrame320';editorFrame.title=language==='zh'?'海报创作界面':'Poster editor';editorFrame.allow='web-share; clipboard-write';
+   const code=resources320.code.replace(/<\/script/gi,'<\\/script');
+   const base=esc(new URL('.',location.href).href);
+   editorFrame.srcdoc=`<!doctype html><html lang="${language==='zh'?'zh-CN':'en'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><base href="${base}"><style>${css}</style></head><body><script>${code}`+'<'+ '/script></body></html>';
+   document.body.append(editorFrame);
+   clearTimeout(loadTimer);loadTimer=setTimeout(()=>{if(token===attempt&&view==='intro'){editorFrame?.remove();editorFrame=null;editorTask=null;fail(t().failed);}},22000);
+  }catch(error){if(token===attempt){editorTask=null;fail(error.message);}}
+ }
+ window.addEventListener('message',event=>{
+  if(!editorFrame||event.source!==editorFrame.contentWindow||event.data?.channel!=='d360-320')return;
+  if(event.data.type==='ready'){
+   clearStatus();view='editor';$('intro320').hidden=true;$('language320').hidden=true;
+   editorFrame.classList.add('ready320');document.body.classList.add('editor-active320');
+  }else if(event.data.type==='home')resetHome();
+  else if(event.data.type==='error'){editorFrame.remove();editorFrame=null;editorTask=null;fail(event.data.message);}
+ });
+ $('dialogClose320').onclick=()=>$('dialog320').close();
+ document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>choose(b.dataset.lang));
+ for(let index=0;index<9;index++){
+  const b=document.createElement('button');b.type='button';b.dataset.entryCell=String(index);b.setAttribute('aria-pressed','false');
+  Object.assign(b.style,{left:(grid.x+index%3*grid.w/3)/W*100+'%',top:(grid.y+Math.floor(index/3)*grid.h/3)/H*100+'%',width:grid.w/3/W*100+'%',height:grid.h/3/H*100+'%'});
+  b.onclick=()=>select(index);$('entryHits320').append(b);
+ }
+ $('entryStart320').onclick=startEditor;$('home320').onclick=resetHome;
+ $('languageRetry320').onclick=()=>{posterTask=poster(language);posterTask.catch(()=>{});if(authed)enterIntro();else login();};
+ $('introRetry320').onclick=()=>{editorTask=null;startEditor();};
+ $('help320').onclick=()=>modal(t().help,`<ol class="steps320">${(language==='zh'?['选择关键词和网格，分别点击确定。','点格子，选择一种内容类型和填充方式。','逐格填写至全部完成；随机和整图可反复调整，满意后确认。','勾选答案，再点击完成创作。','保存海报，或邀请朋友答题。']:['Choose a keyword and grid size. Confirm each choice.','Tap a square. Choose one content type and filling method.','Fill every square. Adjust random results and full-grid images, then confirm.','Select your answer squares, then finish creation.','Save your poster or invite friends to answer.']).map(s=>`<li>${s}</li>`).join('')}</ol>`);
+ window.addEventListener('resize',fit);window.visualViewport?.addEventListener('resize',fit);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;motions.clear();}else if(view==='intro')paint();});
+ // Deliberately do not read language, creation or answer state from storage.
+})();
+
+// One short response for deliberate presses and newly available selections.
+(function installButtonMotion320(){
+ const active=new Map(),running=new WeakMap();let scheduled=false;
+ const control=button=>!button.matches('.cell-hit,[data-entry-cell],.poster-control');
+ function key(button){
+  if(button.id)return '#'+button.id;
+  for(const name of ['topic280','grid280','kind280','method280','lang','swatch'])
+   if(button.dataset[name]!==undefined)return name+':'+button.dataset[name];
+  return (button.getAttribute('aria-label')||button.textContent.trim()).slice(0,100);
+ }
+ function selected(button){return !button.disabled&&(button.getAttribute('aria-pressed')==='true'||['primary','active','selected','selected-language'].some(c=>button.classList.contains(c)));}
+ function pop(button){
+  if(!button.animate||!button.isConnected)return;
+  running.get(button)?.cancel();
+  running.set(button,button.animate([{transform:'scale(.96)'},{transform:'scale(1.03)',offset:.58},{transform:'scale(1)'}],{duration:300,easing:'cubic-bezier(.2,.75,.3,1)'}));
+ }
+ function scan(){
+  scheduled=false;
+  document.querySelectorAll('button').forEach(button=>{
+   if(!control(button))return;
+   const id=key(button),value=selected(button),previous=active.get(id);
+   if(value&&previous===false)pop(button);
+   active.set(id,value);
+  });
+ }
+ function queue(){if(!scheduled){scheduled=true;requestAnimationFrame(scan);}}
+ document.addEventListener('pointerdown',event=>{const b=event.target.closest('button');if(b&&!b.disabled&&control(b))pop(b);},true);
+ document.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){const b=event.target.closest('button');if(b&&!b.disabled&&control(b))pop(b);}},true);
+ new MutationObserver(queue).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class','disabled','aria-pressed']});
+ scan();
 })();
 </script></body></html>
